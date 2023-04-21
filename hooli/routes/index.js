@@ -2,24 +2,24 @@ const express = require('express');
 const router = express.Router();
 const {FusionAuthClient} = require('@fusionauth/typescript-client');
 
-const clientId = 'c8fcbede-0374-416f-b66e-f2ea08a81c5b'; // change
-const clientSecret = 'hAymfhGrxCL2tRU4gErnGTciQXH-VK6HKZUbH5pq7YU'; // change
+const clientId = '8c52c70e-c440-4479-b3f8-437a1a23d042'; // change
+const clientSecret = 'KEQme07qrPWgaMUhnLrvVVJe9vzcFmRF7SoMZUqLGhI'; // change
 const hostName = 'hooli.local';
 
-const fusionauthHostname = 'sandbox.fusionauth.io'
+const fusionauthHostName = 'sandbox.fusionauth.io'
 const port = 3001;
 const title = 'Hooli';
 
-const client = new FusionAuthClient('noapikeyneeded', 'https://'+fusionauthHostname);
-const loginUrl = 'https://'+fusionauthHostname+'/oauth2/authorize?client_id='+clientId+'&response_type=code&redirect_uri=http%3A%2F%2F'+hostName+'%3A'+port+'%2Foauth-redirect&scope=offline_access%20openid';
-const logoutUrl = 'https://'+fusionauthHostname+'/oauth2/logout?client_id='+clientId;
+const client = new FusionAuthClient('noapikeyneeded', 'https://'+fusionauthHostName);
+const loginUrl = 'https://'+fusionauthHostName+'/oauth2/authorize?client_id='+clientId+'&response_type=code&redirect_uri=http%3A%2F%2F'+hostName+'%3A'+port+'%2Foauth-redirect&scope=offline_access%20openid';
+const logoutUrl = 'https://'+fusionauthHostName+'/oauth2/logout?client_id='+clientId;
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
 
   if (!req.session.user) {
-    // res.redirect(302, '/login');
-    res.redirect(302, loginUrl);
+    res.redirect('/login')
+    //  res.redirect(302, loginUrl);
      return;
   }
   res.render('index', {user: req.session.user, title: title + ' App', clientId: clientId, logoutUrl: "/logout", loginUrl: loginUrl});

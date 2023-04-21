@@ -2,24 +2,24 @@ const express = require('express');
 const router = express.Router();
 const {FusionAuthClient} = require('@fusionauth/typescript-client');
 
-const clientId = '4a74640d-68d4-43ea-aa33-d49f1e1ade5c'; // change
-const clientSecret = '3YbMme_MjENlOu-3LUZnUBAPHqxlBAQNdaVLbSJrkjQ'; // change
+const clientId = 'efe085b3-cc4f-408d-bacf-8c03061811aa'; // change
+const clientSecret = '2Wn6JpPRIl_ltkoeR75vwpBdHklXZer6oaOrJMl9fBY'; // change
 const hostName = 'piedpiper.local';
 
-const fusionauthHostname = 'sandbox.fusionauth.io'
+const fusionauthHostName = 'sandbox.fusionauth.io'
 const port = 3000;
 const title = 'Pied Piper';
 
-const client = new FusionAuthClient('noapikeyneeded', 'https://'+fusionauthHostname);
-const loginUrl = 'https://'+fusionauthHostname+'/oauth2/authorize?client_id='+clientId+'&response_type=code&redirect_uri=http%3A%2F%2F'+hostName+'%3A'+port+'%2Foauth-redirect&scope=offline_access%20openid';
-const logoutUrl = 'https://'+fusionauthHostname+'/oauth2/logout?client_id='+clientId;
+const client = new FusionAuthClient('noapikeyneeded', 'https://'+fusionauthHostName);
+const loginUrl = 'https://'+fusionauthHostName+'/oauth2/authorize?client_id='+clientId+'&response_type=code&redirect_uri=http%3A%2F%2F'+hostName+'%3A'+port+'%2Foauth-redirect&scope=offline_access%20openid';
+const logoutUrl = 'https://'+fusionauthHostName+'/oauth2/logout?client_id='+clientId;
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
 
   if (!req.session.user) {
-    // res.redirect(302, '/login');
-    res.redirect(302, loginUrl);
+    res.redirect('/login')
+    //  res.redirect(302, loginUrl);
      return;
   }
   res.render('index', {user: req.session.user, title: title + ' App', clientId: clientId, logoutUrl: "/logout", loginUrl: loginUrl});
